@@ -13,3 +13,10 @@ func Ok(code int, message string, payload interface{}) *Response {
 		Data:    payload,
 	}
 }
+
+func Error(code int, message string) *Response {
+	return &Response{
+		Code:    code,
+		Message: message,
+	}
+}

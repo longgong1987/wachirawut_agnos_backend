@@ -1,7 +1,11 @@
 package domain
 
-type Usecase interface {
+// usecase
+type StrongPasswordStepDtO struct {
+	Password string `json:"password"`
+	Step     int    `json:"step"`
 }
 
-type Repositories interface {
+type StrongPasswordStepResponse struct {
+	NumOfSteps int `json:"num_of_steps"`
 }
