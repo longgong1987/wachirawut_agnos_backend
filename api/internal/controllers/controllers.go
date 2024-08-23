@@ -8,16 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Controller struct {
-	uc *usecases.Usecase
+type Controller interface {
+	StrongPasswordStep(ctx *gin.Context)
 }
 
-func NewController(uc *usecases.Usecase) *Controller {
-	return &Controller{
+type controller struct {
+	uc usecases.Usecase
+}
+
+func NewController(uc usecases.Usecase) Controller {
+	return &controller{
 		uc: uc,
 	}
 }
 
-func (c *Controller) StrongPasswordStep(ctx *gin.Context) {
+func (c *controller) StrongPasswordStep(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, responses.Ok(http.StatusOK, "successfully get items", nil))
 }

@@ -1,13 +1,25 @@
 package repositories
 
-import "gorm.io/gorm"
+import (
+	"wachirawut_agnos_backend/internal/domain"
 
-type Repository struct {
-	postgresql *gorm.DB
+	"gorm.io/gorm"
+)
+
+type Repositories interface {
+	CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStep) error
 }
 
-func NewRepository(postgresql *gorm.DB) *Repository {
+type Repository struct {
+	Postgresql gorm.DB
+}
+
+func NewRepository(postgresql gorm.DB) Repositories {
 	return &Repository{
-		postgresql: postgresql,
+		Postgresql: postgresql,
 	}
+}
+
+func (repo *Repository) CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStep) error {
+	return nil
 }
