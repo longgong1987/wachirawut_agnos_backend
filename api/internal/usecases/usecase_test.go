@@ -45,6 +45,77 @@ func TestCheckStrongPasswordStep(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "Test Case 2 | Password length less than 6 characters",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "123",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 3,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Case 3 | Password length more than 20 characters",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "12$s4ode789G1*o0d1e2s3t4i5n6g7",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 3,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Case 4 | Password contains upper, lower, and number",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "76k%7Gzj!Q(X%s1g",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Case 5 | Password not contains upper, lower, and number",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "password",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 2,
+			},
+		},
+		{
+			name: "Test Case 6 | Password not contain 3 repeating characters",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "123FcL)#$456",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Case 7 | Password contain 3 repeating characters",
+			args: args{
+				passwordStep: &domain.StrongPasswordStepDtO{
+					Password: "123FcccL)#$456",
+				},
+			},
+			want: domain.StrongPasswordStepResponse{
+				NumOfSteps: 1,
+			},
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
