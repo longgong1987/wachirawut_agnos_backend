@@ -26,3 +26,10 @@ $ docker compose --env-file=api/.env up -d --build
 ```bash
 $ docker compose down
 ```
+
+## Unit Test Coverage
+```bash
+$ cd api
+$ go test ./internal/usecases/ -coverprofile=cover.out
+$ go tool cover -html=cover.out
+```
