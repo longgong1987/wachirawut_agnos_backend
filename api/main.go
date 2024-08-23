@@ -5,6 +5,7 @@ import (
 	"os"
 	"wachirawut_agnos_backend/config"
 	"wachirawut_agnos_backend/internal/controllers"
+	"wachirawut_agnos_backend/internal/migrations"
 	"wachirawut_agnos_backend/internal/repositories"
 	"wachirawut_agnos_backend/internal/usecases"
 	"wachirawut_agnos_backend/pkg/database/postgresql"
@@ -23,6 +24,7 @@ func main() {
 	conf := config.NewConfig()
 
 	postgreSQLClient := postgresql.ConnectDB(conf.PostgresqlClient)
+	migrations.Migrate(postgreSQLClient)
 
 	var (
 		repositories = repositories.NewRepository(postgreSQLClient)

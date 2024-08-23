@@ -21,5 +21,16 @@ func NewRepository(postgresql *gorm.DB) *Repository {
 }
 
 func (repo *Repository) CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStepDtO) error {
+
+	// create strong password step
+	strongPasswordStep := &StrongPasswordStep{
+		Password: strongPassword.Password,
+		Step:     strongPassword.Step,
+	}
+
+	if err := repo.Postgresql.Create(strongPasswordStep).Error; err != nil {
+		return err
+	}
+
 	return nil
 }
