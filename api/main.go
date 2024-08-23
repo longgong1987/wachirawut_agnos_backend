@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"wachirawut_agnos_backend/config"
@@ -21,6 +22,8 @@ func main() {
 	}
 
 	conf := config.NewConfig()
+
+	fmt.Println("Bello")
 
 	postgreSQLClient := postgresql.ConnectDB(conf.PostgresqlClient)
 

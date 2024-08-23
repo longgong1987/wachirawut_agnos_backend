@@ -1,3 +1,5 @@
 
 # volumnes
-volumes/
+volumes/*
+
+tmp/*
