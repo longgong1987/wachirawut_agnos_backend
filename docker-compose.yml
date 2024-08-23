@@ -2,9 +2,11 @@ services:
   api:
     build:
       context: api
-      target: builder
+      dockerfile: Dockerfile
     env_file:
       - api/.env
+    volumes:
+      - ./api:/api
     depends_on:
       postgres:
         condition: service_healthy

@@ -19,5 +19,5 @@ func NewController(uc *usecases.Usecase) *Controller {
 }
 
 func (c *Controller) StrongPasswordStep(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, responses.Ok(http.StatusOK, "successfully get item", nil))
+	ctx.JSON(http.StatusOK, responses.Ok(http.StatusOK, "successfully get items", nil))
 }
