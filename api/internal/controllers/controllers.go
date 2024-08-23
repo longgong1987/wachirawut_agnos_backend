@@ -10,21 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Controller interface {
-	StrongPasswordStep(ctx *gin.Context)
+type Controller struct {
+	uc domain.Usecase
 }
 
-type controller struct {
-	uc usecases.Usecase
-}
-
-func NewController(uc usecases.Usecase) *controller {
-	return &controller{
+func NewController(uc *usecases.Usecase) *Controller {
+	return &Controller{
 		uc: uc,
 	}
 }
 
-func (c *controller) StrongPasswordStep(ctx *gin.Context) {
+func (c *Controller) StrongPasswordStep(ctx *gin.Context) {
 	// mapping data from request to StrongPasswordStep model
 	var strongPasswordStep StrongPasswordStep
 

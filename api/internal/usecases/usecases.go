@@ -6,21 +6,17 @@ import (
 	"wachirawut_agnos_backend/internal/repositories"
 )
 
-type Usecase interface {
-	CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStepDtO) (domain.StrongPasswordStepResponse, error)
+type Usecase struct {
+	Repo domain.Repositories
 }
 
-type usecase struct {
-	Repo repositories.Repositories
-}
-
-func NewUsecase(repo repositories.Repositories) *usecase {
-	return &usecase{
+func NewUsecase(repo *repositories.Repositories) *Usecase {
+	return &Usecase{
 		Repo: repo,
 	}
 }
 
-func (uc *usecase) CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStepDtO) (domain.StrongPasswordStepResponse, error) {
+func (uc *Usecase) CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStepDtO) (domain.StrongPasswordStepResponse, error) {
 
 	var numOfSteps domain.StrongPasswordStepResponse
 

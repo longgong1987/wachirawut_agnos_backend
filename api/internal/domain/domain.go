@@ -1,5 +1,13 @@
 package domain
 
+type Usecase interface {
+	CheckStrongPasswordStep(passwordStep *StrongPasswordStepDtO) (StrongPasswordStepResponse, error)
+}
+
+type Repositories interface {
+	CreateStrongPasswordStep(strongPassword *StrongPasswordStepDtO) error
+}
+
 // usecase
 type StrongPasswordStepDtO struct {
 	Password string `json:"password"`
