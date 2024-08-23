@@ -1,6 +1,6 @@
 FROM --platform=$BUILDPLATFORM golang:1.22-alpine AS builder
 
-WORKDIR /api
+WORKDIR /code
 
 ENV CGO_ENABLED 0
 ENV GOPATH /go
@@ -14,9 +14,32 @@ COPY . .
 
 RUN --mount=type=cache,target=/go/pkg/mod/cache \
     --mount=type=cache,target=/go-build \
-    go build -o bin/main cmd/main.go
+    go build -o bin/main .
 
-CMD ["/bin/main"]
+CMD ["/code/bin/main"]
+
+FROM builder as dev-envs
+
+RUN <<EOF
+apk update
+apk add git
+EOF
+
+RUN <<EOF
+addgroup -S docker
+adduser -S --shell /bin/bash --ingroup docker vscode
+EOF
+
+# install Docker tools (cli, buildx, compose)
+COPY --from=gloursdocker/docker / /
+
+CMD ["go", "run", "main.go"]
+
+FROM scratch
+COPY --from=builder /api/bin/main /usr/local/bin/main
+CMD ["/usr/local/bin/main"]
+
+
 
 
 
