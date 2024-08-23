@@ -17,3 +17,12 @@ POSTGRESQL_PASSWORD=
 POSTGRESQL_DATABASE=strong_password_step
 POSTGRESQL_PORT=5432
 ```
+## Deploy with docker compose
+```bash
+$ docker compose --env-file=api/.env up -d --build
+```
+
+## Stop and remove container
+```bash
+$ docker compose down
+```
