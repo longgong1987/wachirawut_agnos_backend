@@ -25,7 +25,7 @@ func main() {
 	postgreSQLClient := postgresql.ConnectDB(conf.PostgresqlClient)
 
 	var (
-		repositories = repositories.NewRepository(*postgreSQLClient)
+		repositories = repositories.NewRepository(postgreSQLClient)
 		usecases     = usecases.NewUsecase(repositories)
 		controllers  = controllers.NewController(usecases)
 	)

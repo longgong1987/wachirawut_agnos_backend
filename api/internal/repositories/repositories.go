@@ -7,19 +7,19 @@ import (
 )
 
 type Repositories interface {
-	CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStep) error
+	CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStepDtO) error
 }
 
 type Repository struct {
-	Postgresql gorm.DB
+	Postgresql *gorm.DB
 }
 
-func NewRepository(postgresql gorm.DB) Repositories {
+func NewRepository(postgresql *gorm.DB) *Repository {
 	return &Repository{
 		Postgresql: postgresql,
 	}
 }
 
-func (repo *Repository) CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStep) error {
+func (repo *Repository) CreateStrongPasswordStep(strongPassword *domain.StrongPasswordStepDtO) error {
 	return nil
 }

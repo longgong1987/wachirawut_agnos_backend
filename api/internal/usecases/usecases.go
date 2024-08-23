@@ -6,19 +6,28 @@ import (
 )
 
 type Usecase interface {
-	CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStep) error
+	CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStepDtO) (domain.StrongPasswordStepResponse, error)
 }
 
-type usecases struct {
+type usecase struct {
 	Repo repositories.Repositories
 }
 
-func NewUsecase(repo repositories.Repositories) Usecase {
-	return &usecases{
+func NewUsecase(repo repositories.Repositories) *usecase {
+	return &usecase{
 		Repo: repo,
 	}
 }
 
-func (uc *usecases) CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStep) error {
-	return nil
+func (uc *usecase) CheckStrongPasswordStep(passwordStep *domain.StrongPasswordStepDtO) (domain.StrongPasswordStepResponse, error) {
+
+	var numOfSteps domain.StrongPasswordStepResponse
+
+	if err := uc.Repo.CreateStrongPasswordStep(passwordStep); err != nil {
+		return numOfSteps, err
+	}
+
+	numOfSteps.NumOfSteps = 1
+
+	return numOfSteps, nil
 }
